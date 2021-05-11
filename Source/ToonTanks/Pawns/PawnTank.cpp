@@ -19,7 +19,7 @@ APawnTank::APawnTank()
 	Camera->SetupAttachment(SpringArm);
 
 
-	
+	//Testing
 }
 
 // Called when the game starts or when spawned

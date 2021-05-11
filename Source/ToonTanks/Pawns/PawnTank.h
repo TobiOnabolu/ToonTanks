@@ -44,6 +44,9 @@ private:
 	void CalculateMoveInput(float Value); //value represent the direction where to go, forward is 1.0, backward is -1.0
 	void CalculateRotateInput(float Value); //value to represent where to rotate
 
+	float MoveSpeed = 100.f;
+	float RotateSpeed = 100.f;
+
 	void Move();		//will go in tick and this is where we actually move
 	void Rotate();
 };

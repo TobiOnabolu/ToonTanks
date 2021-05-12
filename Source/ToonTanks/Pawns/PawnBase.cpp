@@ -2,7 +2,9 @@
 
 
 #include "ToonTanks/Pawns/PawnBase.h"
+#include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/SceneComponent.h"
 
 // Sets default values
 APawnBase::APawnBase()
@@ -33,6 +35,18 @@ void APawnBase::RotateTurret(FVector LookAtTarget)		//look at target is the loca
 {
 	//update turretmesh rotation to face toward the target passed from child class
 	//gonna need to use tURRETMESH->Setworldrotation
+
+	//get variables needed for calc
+	FVector LookAtTargetXY = FVector(LookAtTarget.X, LookAtTarget.Y, TurretMesh->GetComponentLocation().Z);		//Get the location of the target you will be firing it so it can be converted to rotation. We dont want updown rotation, so we dont include the z of target
+	FVector TurretMeshLocation = TurretMesh->GetComponentLocation();
+
+	//calculate the frotator for the turretmesh
+	FRotator TurretRotator = FVector(LookAtTargetXY - TurretMeshLocation).Rotation();
+
+	//set the turret mesh rotation
+	TurretMesh->SetWorldRotation(TurretRotator);
+	UE_LOG(LogTemp, Warning, TEXT("Finding"));
+
 }
 void APawnBase::Fire()
 {

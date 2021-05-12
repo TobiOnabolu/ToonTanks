@@ -10,6 +10,7 @@
 	// Called when the game starts or when spawned
 void APawnTurret::BeginPlay() 
 {
+	Super::BeginPlay();
 	//assiging player in game to our var
 	PlayerTank = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(this, 0));	//we know have reference to the player tank in our game and can use it to check if we are dead
 	
@@ -28,11 +29,16 @@ APawnTurret::APawnTurret()
 void APawnTurret::Tick(float DeltaTime)			//if not implemented in base CUT and paste in child class!
 {
 	Super::Tick(DeltaTime);
+	
+	//rotating turret
+	if (PlayerTank && GetDistanceFromTank() < FiringDistance) {
+		RotateTurret(PlayerTank->GetActorLocation());		//Send the location of the tank to look at
+	}
 }
 
 void APawnTurret::CheckFireCondition()
 {
-//	UE_LOG(LogTemp, Warning, TEXT("Firing"));
+	
 
 	//checking if player exists(i.e not dead)
 	if (!PlayerTank)	//if no player dont shoot
@@ -42,7 +48,7 @@ void APawnTurret::CheckFireCondition()
 	//checking if player in distance to fire
 	if (GetDistanceFromTank() < FiringDistance) 
 	{
-		//fire
+		Fire();
 	}
 
 }

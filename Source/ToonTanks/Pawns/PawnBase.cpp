@@ -29,5 +29,17 @@ void APawnBase::SetUpComponents()
 	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
 }
 
+void APawnBase::RotateTurret(FVector LookAtTarget)		//look at target is the location of where the target is
+{
+	//update turretmesh rotation to face toward the target passed from child class
+	//gonna need to use tURRETMESH->Setworldrotation
+}
+void APawnBase::Fire()
+{
+	//get projectilespawnpoint
 
+}
+void APawnBase::HandleDestruction()			//this is the only function that needs to be overriden by our child classes.
+{
 
+}

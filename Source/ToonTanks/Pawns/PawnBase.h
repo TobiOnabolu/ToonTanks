@@ -18,7 +18,9 @@ public:
 	APawnBase();
 
 protected:
-
+	void RotateTurret(FVector LookAtTarget);
+	void Fire();
+	virtual void HandleDestruction();			//this is the only function that needs to be overriden by our child classes.
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))

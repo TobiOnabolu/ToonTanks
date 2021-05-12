@@ -18,8 +18,6 @@ APawnTank::APawnTank()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
 
-
-	//Testing
 }
 
 // Called when the game starts or when spawned

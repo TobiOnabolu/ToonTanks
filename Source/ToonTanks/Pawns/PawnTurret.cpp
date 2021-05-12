@@ -53,6 +53,12 @@ void APawnTurret::CheckFireCondition()
 
 }
 
+void APawnTurret::HandleDestruction()
+{
+	Super::HandleDestruction(); //always call to base class function
+	Destroy();				//destroy class
+}
+
 float APawnTurret::GetDistanceFromTank()
 {
 	//getting distance btwn player and turret

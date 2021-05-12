@@ -45,7 +45,7 @@ void APawnBase::RotateTurret(FVector LookAtTarget)		//look at target is the loca
 
 	//set the turret mesh rotation
 	TurretMesh->SetWorldRotation(TurretRotator);
-	UE_LOG(LogTemp, Warning, TEXT("Finding"));
+	//UE_LOG(LogTemp, Warning, TEXT("Finding"));
 
 }
 void APawnBase::Fire()

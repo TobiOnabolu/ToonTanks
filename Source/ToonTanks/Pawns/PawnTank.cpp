@@ -7,6 +7,7 @@
 #include "Math/Quat.h"
 #include "PawnTank.h"
 
+#define OUT
 APawnTank::APawnTank() 
 {
 	//Super::APawnBase(); //call constructor set up components in parent class
@@ -24,7 +25,8 @@ APawnTank::APawnTank()
 void APawnTank::BeginPlay()
 {
 	Super::BeginPlay();
-
+	PlayerController = Cast<APlayerController>(GetController()); //Assigns the controller to our reference variable
+	PlayerController->bShowMouseCursor = true;
 }
 
 // Called every frame
@@ -33,6 +35,13 @@ void APawnTank::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	Move();
 	Rotate();
+	FHitResult Hit;	
+
+	if (PlayerController) {
+		PlayerController->GetHitResultUnderCursor(ECC_Visibility, false, OUT Hit);		//Getting the cursor to recognize when it hits stuff in visibility chan	
+		FVector MouseLocation = Hit.ImpactPoint;		//the impact point is the place where ur cursor is, thus to make anything follow where ur cursor is , assign it this location
+		RotateTurret(MouseLocation);
+	}
 }
 
 // Called to bind functionality to input
@@ -43,7 +52,7 @@ void APawnTank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("MoveForward", this, &APawnTank::CalculateMoveInput);			//similiar to when we are setting up the input key for building escape, just using bindaxis now to give functionality to analog users as well
 																									//Note this bind axis will send a float value to the function we have addressed
 	PlayerInputComponent->BindAxis("Turn", this, &APawnTank::CalculateRotateInput);	
-
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APawnTank::Fire);				//use action when it action key and not moving
 }
 
 //This functions will run after the correct key is pressed due to binding in setupplayercomponent
@@ -72,4 +81,10 @@ void APawnTank::Move()
 void APawnTank::Rotate()
 {
 	AddActorLocalRotation(RotationDirection, true); //Set sweep to true again
+}
+
+void APawnTank::HandleDestruction()
+{
+	Super::HandleDestruction(); //always call to base class function
+				//destroy class
 }

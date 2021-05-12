@@ -3,15 +3,33 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Pawns/PawnTank.h"
+#include "PawnBase.h"
 #include "PawnTurret.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TOONTANKS_API APawnTurret : public APawnTank
+class TOONTANKS_API APawnTurret : public APawnBase
 {
 	GENERATED_BODY()
+
+private: 
+	void CheckFireCondition();
+
+	float FireRate = 2.0f;
+
+	FTimerHandle FireRateTimerHandle;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+public:
+	APawnTurret();
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;			//if not implemented in base CUT and paste in child class!
+
 	
 };

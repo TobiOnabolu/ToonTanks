@@ -1,10 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "ToonTanks/Pawns/PawnBase.h"
+
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SceneComponent.h"
+#include "Engine/World.h"
+#include "ToonTanks/Actors/ProjectileBase.h"
+#include "ToonTanks/Pawns/PawnBase.h"
 
 // Sets default values
 APawnBase::APawnBase()
@@ -51,6 +54,10 @@ void APawnBase::RotateTurret(FVector LookAtTarget)		//look at target is the loca
 void APawnBase::Fire()
 {
 	//get projectilespawnpoint
+	FVector SpawnLocation = ProjectileSpawnPoint->GetComponentLocation();
+	FRotator SpawnRotation = ProjectileSpawnPoint->GetComponentRotation();
+	AProjectileBase* TempProjectile = GetWorld()->SpawnActor<AProjectileBase>(ProjectileType, SpawnLocation, SpawnRotation);	//Need to declare the type of projectile and spawn point
+	TempProjectile->SetOwner(this);
 
 }
 void APawnBase::HandleDestruction()			//this is the only function that needs to be overriden by our child classes.

@@ -16,11 +16,11 @@ class TOONTANKS_API APawnBase : public APawn
 public:
 	// Sets default values for this pawn's properties
 	APawnBase();
-
+	virtual void HandleDestruction();			//this is the only function that needs to be overriden by our child classes.
 protected:
 	void RotateTurret(FVector LookAtTarget);
 	void Fire();
-	virtual void HandleDestruction();			//this is the only function that needs to be overriden by our child classes.
+	
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))

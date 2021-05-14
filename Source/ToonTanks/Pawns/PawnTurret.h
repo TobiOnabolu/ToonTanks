@@ -32,13 +32,11 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	virtual void HandleDestruction() override;
+	
 
 public:
 	APawnTurret();
-
-
-
+	virtual void HandleDestruction() override;
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;			//if not implemented in base CUT and paste in child class!
 

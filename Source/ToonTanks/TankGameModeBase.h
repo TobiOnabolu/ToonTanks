@@ -9,6 +9,8 @@
 /**
  * 
  */
+class APawnTurret;
+class APawnTank;
 UCLASS()
 class TOONTANKS_API ATankGameModeBase : public AGameModeBase
 {
@@ -17,6 +19,10 @@ class TOONTANKS_API ATankGameModeBase : public AGameModeBase
 private:
 	void HandleGameStart();
 	void HandleGameOver(bool PlayerWon);
+	APawnTank* PlayerTank;
+	//APawnTurret* PlayerTurret;
+	int32 TargetTurrets = 0;
+
 public:
 	void ActorDied(AActor* DeadActor);
 

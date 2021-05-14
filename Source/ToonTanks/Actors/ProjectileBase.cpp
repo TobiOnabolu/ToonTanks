@@ -26,7 +26,7 @@ void AProjectileBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UP
 	if (!MyOwner) { return; }
 
 	if (OtherActor && OtherActor != this && OtherActor != MyOwner) {	//these check confirm we hit a valid actor, i.e not ourselve and not the thing that shot us
-		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwner->GetInstigatorController(), this, DamageType);	//this is what applies damage to other actor
+		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwner->GetInstigatorController(), this, DamageType);	//this is what applies damage to other actor, since used ugameplay statics it connects with the health component on the actor
 		
 	}
 

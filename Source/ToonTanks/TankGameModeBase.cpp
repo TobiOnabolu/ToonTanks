@@ -3,6 +3,7 @@
 #include "ToonTanks/Pawns/PawnTank.h"
 #include "ToonTanks/Pawns/PawnTurret.h"
 #include "Kismet/GameplayStatics.h"
+#include "PlayerControllerBase.h"
 #include "TankGameModeBase.h"
 
 void ATankGameModeBase::HandleGameStart()
@@ -14,7 +15,9 @@ void ATankGameModeBase::HandleGameStart()
 
 	//retrieve the player in world
 	PlayerTank = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(this, 0));
-
+	
+	//retrieving player  controller
+	PlayerControllerRef = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(this, 0));
 	GameStart();
 }
 void ATankGameModeBase::HandleGameOver(bool PlayerWon)
@@ -28,6 +31,14 @@ void ATankGameModeBase::ActorDied(AActor* DeadActor)
 	if (DeadActor == PlayerTank) {
 		PlayerTank->HandleDestruction();
 		HandleGameOver(false); //player didnt win
+
+		//disable player controller 
+		if (PlayerControllerRef)
+		{
+			PlayerControllerRef->SetPlayerEnabledState(false);
+			
+
+		}
 	}
 	//Check if turret got destroyed
 	else if (APawnTurret* DestroyedTurret = Cast<APawnTurret>(DeadActor))	//if this cast doesnt return null then it was a turret that was destroyed
